@@ -1,14 +1,13 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрирует все дочерние элементы по горизонтали */
-  background-color: #f0f0f0; /* Для наглядности, чтобы было видно, что фон страницы шире */
-  min-height: 100vh; /* Занимает всю высоту видимой области */
+  align-items: center;
+  background-color: #ffffff;
+  min-height: 100vh;
 }
 
 .page-content {
-  width: 1440px; /* Фиксированная ширина, как на макете */
-  /* Здесь можно добавить отступы, если нужно */
+  width: 1440px;
   padding: 20px;
-  box-sizing: border-box; /* Важно, чтобы padding не увеличивал ширину */
+  box-sizing: border-box;
 }

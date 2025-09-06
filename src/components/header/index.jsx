@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -21,10 +22,19 @@ export default function Header() {
       }}
     >
       <Toolbar sx={{ justifyContent: "space-between", height: "100%" }}>
-        <Box display="flex" alignItems="center" gap={1}>
+        <Box
+          component={Link}
+          to="/"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            textDecoration: "none",
+          }}
+        >
           <img src={logo} alt="PetShop logo" />
           <Typography
-            component="div"
+            component="span"
             sx={{
               fontFamily: "Montserrat, sans-serif",
               fontWeight: 500,
@@ -37,31 +47,39 @@ export default function Header() {
         </Box>
         <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
           <Button
+            component={Link}
+            to="/"
             color="inherit"
             sx={{ textTransform: "none", fontWeight: "inherit" }}
           >
             Main Page
           </Button>
           <Button
+            component={Link}
+            to="/categories"
             color="inherit"
             sx={{ textTransform: "none", fontWeight: "inherit" }}
           >
             Categories
           </Button>
           <Button
+            component={Link}
+            to="/products"
             color="inherit"
             sx={{ textTransform: "none", fontWeight: "inherit" }}
           >
             All products
           </Button>
           <Button
+            component={Link}
+            to="/sales"
             color="inherit"
             sx={{ textTransform: "none", fontWeight: "inherit" }}
           >
             All sales
           </Button>
         </Box>
-        <IconButton size="large" color="primary">
+        <IconButton size="large" color="primary" component={Link} to="/basket">
           <img src={basket} alt="Shopping basket" width={28} height={28} />
         </IconButton>
       </Toolbar>
