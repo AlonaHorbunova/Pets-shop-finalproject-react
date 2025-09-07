@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import MainPage from "./pages/main/index.jsx";
-import CategoriesPage from "./pages/catigories/index.jsx";
+// Путь к странице в папке pages
+import CategoriesPage from "./pages/categories/index.jsx";
 import ProductsPage from "./pages/products/index.jsx";
 import SalesPage from "./pages/sales/index.jsx";
 import BasketPage from "./pages/basket/index.jsx";

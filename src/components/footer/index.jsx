@@ -172,7 +172,9 @@ export default function Footer() {
                 color: "#282828",
               }}
             >
-              Wallstraße 9-13, 10179 Berlin, Deutschland
+              Wallstraße 9-13, 10179 Berlin,
+              <br />
+              Deutschland
             </Typography>
           </Box>
 
