@@ -1,10 +1,56 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../redux/slices/productsSlice";
+import { Box, Typography } from "@mui/material";
+import ProductCard from "../../components/productCard";
+
 export default function ProductsPage() {
+  const dispatch = useDispatch();
+  const {
+    items: products,
+    status,
+    error,
+  } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchProducts());
+    }
+  }, [status, dispatch]);
+
   return (
-    <div>
-      <h1>ProductsPage</h1>
-      {/* Здесь будет всё содержимое вашей главной страницы:
-          списки товаров, акции, баннеры и т.д.
-      */}
-    </div>
+    <Box sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5 }}>
+      <Typography
+        variant="h2"
+        component="h1"
+        sx={{
+          fontSize: 64,
+          fontWeight: 700,
+          lineHeight: "110%",
+          marginBottom: 5,
+        }}
+      >
+        All products
+      </Typography>
+
+      {status === "loading" && <Typography>Loading products...</Typography>}
+      {status === "failed" && (
+        <Typography color="error">Error: {error}</Typography>
+      )}
+      {status === "succeeded" && products.length > 0 && (
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: 4,
+            justifyItems: "center",
+          }}
+        >
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </Box>
+      )}
+    </Box>
   );
 }

@@ -9,6 +9,8 @@ export default function CategoryCard({ category = {} }) {
       component={Link}
       to={`/categories/${category.id}`}
       sx={{
+        width: 316,
+        height: 392,
         textDecoration: "none",
         color: "inherit",
         borderRadius: "8px",
@@ -23,7 +25,7 @@ export default function CategoryCard({ category = {} }) {
       <img
         src={imageUrl}
         alt={category.title}
-        style={{ width: "100%", height: "200px", objectFit: "cover" }}
+        style={{ width: "100%", height: "320px", objectFit: "cover" }}
       />
       <Box sx={{ padding: "16px" }}>
         <Typography

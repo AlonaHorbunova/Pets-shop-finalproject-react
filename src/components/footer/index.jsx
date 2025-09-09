@@ -16,9 +16,8 @@ export default function Footer() {
     >
       <Box
         sx={{
-          maxWidth: 1440,
+          maxWidth: 1360,
           margin: "0 auto",
-          padding: "0 20px",
         }}
       >
         <Typography
