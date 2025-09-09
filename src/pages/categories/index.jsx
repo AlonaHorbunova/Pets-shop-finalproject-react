@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../redux/slices/categorySlice";
-import { Box, Typography, Button } from "@mui/material"; // Импортируем Button
-import { Link } from "react-router-dom"; // Импортируем Link
-
+import { Box, Typography, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import CategoryCard from "../../components/categoryCard";
 
 export default function CategoriesPage() {
@@ -25,17 +24,21 @@ export default function CategoriesPage() {
       sx={{ width: "100%", maxWidth: 1360, margin: "0 auto", padding: "20px" }}
     >
       <Box sx={{ marginBottom: 4 }}>
-        <Box sx={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
+        <Box sx={{ display: "flex", gap: "16px", marginBottom: "40px" }}>
           <Button
             variant="outlined"
             component={Link}
             to="/"
             sx={{
+              width: 120,
+              height: 36,
+              padding: "8px 16px",
               color: "#000",
               borderColor: "#D9D9D9",
               textTransform: "none",
               fontWeight: 500,
               fontSize: 16,
+              borderRadius: "4px",
               "&:hover": {
                 borderColor: "#D9D9D9",
                 backgroundColor: "rgba(0, 0, 0, 0.04)",
@@ -44,17 +47,20 @@ export default function CategoriesPage() {
           >
             Main page
           </Button>
-
           <Button
             variant="contained"
             component={Link}
-            to="/products/all"
+            to="/products"
             sx={{
-              background: "#0D50FF",
-              color: "#fff",
+              width: 150,
+              height: 36,
+              padding: "8px 16px",
+              background: "#DDDDDD",
+              color: "#282828",
               textTransform: "none",
               fontWeight: 500,
               fontSize: 16,
+              borderRadius: "4px",
               "&:hover": {
                 background: "#282828",
               },
@@ -63,7 +69,6 @@ export default function CategoriesPage() {
             All products
           </Button>
         </Box>
-
         <Typography
           variant="h2"
           sx={{
@@ -73,19 +78,18 @@ export default function CategoriesPage() {
             lineHeight: "110%",
             letterSpacing: 0,
             color: "#282828",
+            marginBottom: "40px",
           }}
         >
           Categories
         </Typography>
       </Box>
       {status === "loading" && <Typography>Загрузка категорий...</Typography>}
-
       {status === "failed" && (
         <Typography color="error">
           Не удалось загрузить категории: {error}
         </Typography>
       )}
-
       {status === "succeeded" && categories.length > 0 && (
         <Box
           sx={{
@@ -97,6 +101,7 @@ export default function CategoriesPage() {
               lg: "repeat(4, 1fr)",
             },
             gap: 4,
+            marginBottom: "106px",
           }}
         >
           {categories.map((category) => (
@@ -104,7 +109,6 @@ export default function CategoriesPage() {
           ))}
         </Box>
       )}
-
       {status === "succeeded" && categories.length === 0 && (
         <Typography>Категории не найдены.</Typography>
       )}

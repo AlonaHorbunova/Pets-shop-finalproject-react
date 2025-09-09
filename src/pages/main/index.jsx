@@ -1,25 +1,43 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../redux/slices/categorySlice";
-import { Box, Button, Typography, TextField, InputBase } from "@mui/material";
+import { fetchProducts } from "../../redux/slices/productsSlice";
+import { Box, Button, Typography, InputBase } from "@mui/material";
 import { Link } from "react-router-dom";
 import mainBanner from "../../assets/images/banner.png";
 import dogs from "../../assets/images/dogs.svg";
 import CategoryCard from "../../components/categoryCard";
+import ProductCard from "../../components/productCard";
 
 export default function MainPage() {
   const dispatch = useDispatch();
-  const { items: categories, status } = useSelector(
+
+  const { items: categories, status: categoriesStatus } = useSelector(
     (state) => state.categories
+  );
+  const { items: products, status: productsStatus } = useSelector(
+    (state) => state.products
   );
 
   useEffect(() => {
-    if (status === "idle") {
+    if (categoriesStatus === "idle") {
       dispatch(fetchCategories());
     }
-  }, [status, dispatch]);
+    if (productsStatus === "idle") {
+      dispatch(fetchProducts());
+    }
+  }, [categoriesStatus, productsStatus, dispatch]);
 
-  const displayedCategories = categories.slice(0, 4);
+  const shuffledCategories = [...categories].sort(() => Math.random() - 0.5);
+  const displayedCategories = shuffledCategories.slice(0, 4);
+
+  const salesProducts = products.filter(
+    (product) => product.discont_price !== null
+  );
+  const shuffledSalesProducts = [...salesProducts].sort(
+    () => Math.random() - 0.5
+  );
+  const displayedSalesProducts = shuffledSalesProducts.slice(0, 4);
 
   return (
     <>
@@ -63,7 +81,6 @@ export default function MainPage() {
             variant="h1"
             component="h1"
             sx={{
-              fontFamily: "Montserrat",
               fontWeight: 700,
               fontSize: { xs: 48, md: 70, lg: 96 },
               lineHeight: "110%",
@@ -75,7 +92,6 @@ export default function MainPage() {
           >
             Amazing Discounts <br /> on Pets Products!
           </Typography>
-
           <Button
             variant="contained"
             component={Link}
@@ -144,7 +160,6 @@ export default function MainPage() {
               }}
             />
           </Box>
-
           <Button
             variant="outlined"
             component={Link}
@@ -162,8 +177,10 @@ export default function MainPage() {
             All categories
           </Button>
         </Box>
-        {status === "loading" && <Typography>Loading categories...</Typography>}
-        {status === "succeeded" && displayedCategories.length > 0 && (
+        {categoriesStatus === "loading" && (
+          <Typography>Loading categories...</Typography>
+        )}
+        {categoriesStatus === "succeeded" && displayedCategories.length > 0 && (
           <Box
             sx={{
               display: "grid",
@@ -176,7 +193,7 @@ export default function MainPage() {
             ))}
           </Box>
         )}
-        {status === "failed" && (
+        {categoriesStatus === "failed" && (
           <Typography color="error">
             Failed to load categories. Please try again later.
           </Typography>
@@ -197,7 +214,7 @@ export default function MainPage() {
           alignItems: "center",
           paddingTop: "60px",
           overflow: "hidden",
-          marginTop: 13,
+          mt: "80px",
         }}
       >
         <Typography
@@ -214,8 +231,6 @@ export default function MainPage() {
         >
           5% off on the first order
         </Typography>
-
-        {/* Контейнер для формы и изображения */}
         <Box
           sx={{
             position: "relative",
@@ -223,7 +238,6 @@ export default function MainPage() {
             height: "100%",
           }}
         >
-          {/* Изображение собак */}
           <Box
             component="img"
             src={dogs}
@@ -236,7 +250,6 @@ export default function MainPage() {
               objectFit: "cover",
             }}
           />
-
           <Box
             component="form"
             sx={{
@@ -319,6 +332,97 @@ export default function MainPage() {
             </Button>
           </Box>
         </Box>
+      </Box>
+
+      <Box
+        sx={{
+          width: 1360,
+          margin: "0 auto",
+          padding: "0 20px",
+          mt: "80px",
+          mb: "80px",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 5,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              flexGrow: 1,
+            }}
+          >
+            <Typography
+              variant="h2"
+              component="h2"
+              sx={{
+                fontSize: 64,
+                fontWeight: 700,
+                lineHeight: "110%",
+              }}
+            >
+              Sale
+            </Typography>
+            <Box
+              sx={{
+                flexGrow: 1,
+                height: "2px",
+                backgroundColor: "#D9D9D9",
+                marginTop: "10px",
+              }}
+            />
+          </Box>
+          <Button
+            variant="outlined"
+            component={Link}
+            to="/sales"
+            sx={{
+              color: "#000",
+              borderColor: "#D9D9D9",
+              textTransform: "none",
+              "&:hover": {
+                borderColor: "#D9D9D9",
+                backgroundColor: "rgba(0, 0, 0, 0.04)",
+              },
+            }}
+          >
+            All sales
+          </Button>
+        </Box>
+        {productsStatus === "loading" && (
+          <Typography>Loading discounted products...</Typography>
+        )}
+        {productsStatus === "succeeded" && displayedSalesProducts.length > 0 ? (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gap: 4,
+            }}
+          >
+            {displayedSalesProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </Box>
+        ) : (
+          productsStatus === "succeeded" && (
+            <Typography>
+              No discounted items available at the moment.
+            </Typography>
+          )
+        )}
+        {productsStatus === "failed" && (
+          <Typography color="error">
+            Failed to load products. Please try again later.
+          </Typography>
+        )}
       </Box>
     </>
   );

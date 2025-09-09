@@ -5,11 +5,7 @@ const basketSlice = createSlice({
   initialState: {
     items: [],
   },
-  reducers: {
-    // Здесь вы будете добавлять функции для корзины, например:
-    // addItem: (state, action) => { ... },
-    // removeItem: (state, action) => { ... },
-  },
+  reducers: {},
 });
 
 export const { addItem, removeItem } = basketSlice.actions;

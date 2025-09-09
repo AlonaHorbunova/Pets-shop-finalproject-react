@@ -36,7 +36,6 @@ export default function Header() {
           <Typography
             component="span"
             sx={{
-              fontFamily: "Montserrat, sans-serif",
               fontWeight: 500,
               fontSize: 20,
               lineHeight: "130%",
@@ -50,7 +49,13 @@ export default function Header() {
             component={Link}
             to="/"
             color="inherit"
-            sx={{ textTransform: "none", fontWeight: "inherit" }}
+            sx={{
+              textTransform: "none",
+              fontWeight: 500,
+              fontSize: 20,
+              lineHeight: "130%",
+              color: "#282828",
+            }}
           >
             Main Page
           </Button>
@@ -58,7 +63,13 @@ export default function Header() {
             component={Link}
             to="/categories"
             color="inherit"
-            sx={{ textTransform: "none", fontWeight: "inherit" }}
+            sx={{
+              textTransform: "none",
+              fontWeight: 500,
+              fontSize: 20,
+              lineHeight: "130%",
+              color: "#282828",
+            }}
           >
             Categories
           </Button>
@@ -66,7 +77,13 @@ export default function Header() {
             component={Link}
             to="/products"
             color="inherit"
-            sx={{ textTransform: "none", fontWeight: "inherit" }}
+            sx={{
+              textTransform: "none",
+              fontWeight: 500,
+              fontSize: 20,
+              lineHeight: "130%",
+              color: "#282828",
+            }}
           >
             All products
           </Button>
@@ -74,7 +91,13 @@ export default function Header() {
             component={Link}
             to="/sales"
             color="inherit"
-            sx={{ textTransform: "none", fontWeight: "inherit" }}
+            sx={{
+              textTransform: "none",
+              fontWeight: 500,
+              fontSize: 20,
+              lineHeight: "130%",
+              color: "#282828",
+            }}
           >
             All sales
           </Button>
