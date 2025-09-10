@@ -11,7 +11,6 @@ export default function Footer() {
         background: "#FFFFFF",
         padding: "40px 0",
         marginTop: "auto",
-        borderTop: "1px solid #DDDDDD",
       }}
     >
       <Box
