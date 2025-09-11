@@ -11,7 +11,7 @@ import SalesPage from "./pages/sales/index.jsx";
 import BasketPage from "./pages/basket/index.jsx";
 import NotFoundPage from "./pages/notFoundPage/index.jsx";
 import ProductsByCategoryPage from "./pages/productsByCategory/index.jsx";
-import ProductDetailsPage from "./pages/productDetails/index.jsx"; // <-- Добавили импорт
+import ProductDetailsPage from "./pages/productDetails/index.jsx";
 
 import "./App.css";
 
@@ -33,7 +33,6 @@ function App() {
                 element={<ProductsByCategoryPage />}
               />
               <Route path="/products/:id" element={<ProductDetailsPage />} />{" "}
-              {/* <-- Добавили новый маршрут */}
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>

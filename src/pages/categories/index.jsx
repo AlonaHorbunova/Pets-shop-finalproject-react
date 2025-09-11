@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "../../redux/slices/categorySlice";
-import { Box, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 import CategoryCard from "../../components/categoryCard";
+import DynamicBreadcrumbs from "../../components/DynamicBreadcrumbs";
 
 export default function CategoriesPage() {
   const dispatch = useDispatch();
@@ -23,52 +23,8 @@ export default function CategoriesPage() {
     <Box
       sx={{ width: "100%", maxWidth: 1360, margin: "0 auto", padding: "20px" }}
     >
+      <DynamicBreadcrumbs />
       <Box sx={{ marginBottom: 4 }}>
-        <Box sx={{ display: "flex", gap: "16px", marginBottom: "40px" }}>
-          <Button
-            variant="outlined"
-            component={Link}
-            to="/"
-            sx={{
-              width: 120,
-              height: 36,
-              padding: "8px 16px",
-              color: "#000",
-              borderColor: "#D9D9D9",
-              textTransform: "none",
-              fontWeight: 500,
-              fontSize: 16,
-              borderRadius: "4px",
-              "&:hover": {
-                borderColor: "#D9D9D9",
-                backgroundColor: "rgba(0, 0, 0, 0.04)",
-              },
-            }}
-          >
-            Main page
-          </Button>
-          <Button
-            variant="contained"
-            component={Link}
-            to="/products"
-            sx={{
-              width: 150,
-              height: 36,
-              padding: "8px 16px",
-              background: "#DDDDDD",
-              color: "#282828",
-              textTransform: "none",
-              fontWeight: 500,
-              fontSize: 16,
-              borderRadius: "4px",
-              "&:hover": {
-                background: "#282828",
-              },
-            }}
-          >
-            All products
-          </Button>
-        </Box>
         <Typography
           variant="h2"
           sx={{

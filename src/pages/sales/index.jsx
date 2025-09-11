@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/slices/productsSlice";
-import { Box, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 import ProductCard from "../../components/productCard";
+import DynamicBreadcrumbs from "../../components/DynamicBreadcrumbs";
 
 export default function SalesPage() {
   const dispatch = useDispatch();
@@ -25,6 +25,7 @@ export default function SalesPage() {
 
   return (
     <Box sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5 }}>
+      <DynamicBreadcrumbs />
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
         <Typography
           variant="h2"

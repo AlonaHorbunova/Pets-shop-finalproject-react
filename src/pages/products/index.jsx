@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { Box, Typography } from "@mui/material";
 import ProductCard from "../../components/productCard";
+import DynamicBreadcrumbs from "../../components/DynamicBreadcrumbs";
 
 export default function ProductsPage() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function ProductsPage() {
 
   return (
     <Box sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5 }}>
+      <DynamicBreadcrumbs />
       <Typography
         variant="h2"
         component="h1"
@@ -50,6 +52,9 @@ export default function ProductsPage() {
             <ProductCard key={product.id} product={product} />
           ))}
         </Box>
+      )}
+      {status === "succeeded" && products.length === 0 && (
+        <Typography>No products found.</Typography>
       )}
     </Box>
   );

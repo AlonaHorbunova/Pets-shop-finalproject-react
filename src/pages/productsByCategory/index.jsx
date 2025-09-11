@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { fetchProducts } from "../../redux/slices/productsSlice";
 import { fetchCategories } from "../../redux/slices/categorySlice";
 import { Box, Typography } from "@mui/material";
 import ProductCard from "../../components/productCard";
+import DynamicBreadcrumbs from "../../components/DynamicBreadcrumbs";
 
 export default function ProductsByCategoryPage() {
   const { id } = useParams();
@@ -39,6 +40,7 @@ export default function ProductsByCategoryPage() {
 
   return (
     <Box sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5 }}>
+      <DynamicBreadcrumbs />
       <Typography
         variant="h2"
         component="h1"
@@ -55,6 +57,7 @@ export default function ProductsByCategoryPage() {
       {productsStatus === "loading" && (
         <Typography>Loading products...</Typography>
       )}
+
       {productsStatus === "failed" && (
         <Typography color="error">Error: {productsError}</Typography>
       )}
@@ -69,7 +72,19 @@ export default function ProductsByCategoryPage() {
           }}
         >
           {productsInCategory.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <Link
+              key={product.id}
+              to={`/products/${product.id}`}
+              state={{
+                fromCategory: {
+                  id: currentCategory.id,
+                  title: currentCategory.title,
+                },
+              }} // <-- ДОБАВЛЕНО
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <ProductCard product={product} />
+            </Link>
           ))}
         </Box>
       ) : (

@@ -13,24 +13,36 @@ const DynamicBreadcrumbs = () => {
     const pathnames = location.pathname.split("/").filter((x) => x);
     const generatedCrumbs = [];
 
+    generatedCrumbs.push({ label: "Main page", path: "/", isLast: false });
+
+    const { fromCategory } = location.state || {};
+    if (fromCategory && pathnames[0] === "products") {
+      generatedCrumbs.push({
+        label: "Categories",
+        path: "/categories",
+        isLast: false,
+      });
+      generatedCrumbs.push({
+        label: fromCategory.title,
+        path: `/categories/${fromCategory.id}`,
+        isLast: false,
+      });
+    }
+
     pathnames.forEach((value, index) => {
-      const isLast = index === pathnames.length - 1;
       const currentPath = `/${pathnames.slice(0, index + 1).join("/")}`;
-
       let label = value.replace(/-/g, " ");
+      const isLast = index === pathnames.length - 1;
 
-      // Обработка специальных путей
-      if (value === "categories") {
+      if (value === "categories" && !fromCategory) {
         label = "Categories";
-      } else if (value === "products") {
+      } else if (value === "products" && !fromCategory) {
         label = "All products";
       } else if (value === "sales") {
         label = "All sales";
       } else {
-        // Проверка, является ли значение ID
         const id = parseInt(value);
         if (!isNaN(id)) {
-          // Если это ID, ищем соответствующий товар или категорию
           const product = products.find((p) => p.id === id);
           if (product) {
             label = product.title;
@@ -43,15 +55,22 @@ const DynamicBreadcrumbs = () => {
         }
       }
 
-      generatedCrumbs.push({
-        label: label,
-        path: currentPath,
-        isLast: isLast,
-      });
+      if (
+        (value === "products" && fromCategory) ||
+        (value === "categories" && fromCategory)
+      ) {
+        //
+      } else {
+        generatedCrumbs.push({
+          label: label,
+          path: currentPath,
+          isLast: isLast,
+        });
+      }
     });
 
     setCrumbs(generatedCrumbs);
-  }, [location.pathname, products, categories]);
+  }, [location.pathname, location.state, products, categories]);
 
   return (
     <Box
@@ -64,7 +83,8 @@ const DynamicBreadcrumbs = () => {
       }}
     >
       {crumbs.map((crumb, index) => (
-        <React.Fragment key={crumb.path}>
+        <React.Fragment key={index}>
+          {" "}
           <Box
             sx={{
               display: "flex",
