@@ -34,9 +34,18 @@ const basketSlice = createSlice({
         state.items = state.items.filter((i) => i.id !== action.payload);
       }
     },
+    clearBasket: (state) => {
+      state.items = [];
+    },
   },
 });
 
-export const { addItem, removeItem, incrementItem, decrementItem } =
-  basketSlice.actions;
+export const {
+  addItem,
+  removeItem,
+  incrementItem,
+  decrementItem,
+  clearBasket,
+} = basketSlice.actions;
+
 export default basketSlice.reducer;
