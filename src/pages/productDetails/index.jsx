@@ -1,25 +1,47 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation } from "react-router-dom";
 import { fetchSingleProduct } from "../../redux/slices/productsSlice";
-import { Box, Typography, Button } from "@mui/material";
+import { addItem } from "../../redux/slices/basketSlice"; // Импортируем addItem
+import { Box, Typography, Button, IconButton } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import DynamicBreadcrumbs from "../../components/DynamicBreadcrumbs";
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const _location = useLocation();
   const {
     selectedItem: product,
     singleItemStatus: status,
     singleItemError: error,
   } = useSelector((state) => state.products);
 
+  // Состояние для счетчика товара
+  const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     if (id) {
       dispatch(fetchSingleProduct(id));
     }
   }, [id, dispatch]);
+
+  const handleIncrement = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addItem({ ...product, quantity }));
+      setQuantity(1); // Сбрасываем счетчик после добавления
+    }
+  };
 
   if (status === "loading" || status === "idle") {
     return (
@@ -81,12 +103,20 @@ export default function ProductDetailsPage() {
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 2 }}>
             <Box sx={{ display: "flex", border: "1px solid #ccc" }}>
-              <Button>-</Button>
-              <Typography sx={{ p: 1 }}>1</Typography>
-              <Button>+</Button>
+              <IconButton onClick={handleDecrement} color="primary">
+                <RemoveIcon />
+              </IconButton>
+              <Typography sx={{ p: 1 }}>{quantity}</Typography>
+              <IconButton onClick={handleIncrement} color="primary">
+                <AddIcon />
+              </IconButton>
             </Box>
 
-            <Button variant="contained" sx={{ p: "10px 40px" }}>
+            <Button
+              variant="contained"
+              sx={{ p: "10px 40px" }}
+              onClick={handleAddToCart}
+            >
               Add to cart
             </Button>
           </Box>
