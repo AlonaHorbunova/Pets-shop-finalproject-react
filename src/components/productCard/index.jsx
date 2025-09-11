@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/slices/basketSlice";
 import { Box, Typography, Button } from "@mui/material";

@@ -1,5 +1,5 @@
-import React, { useState } from "react"; // Добавляем useState
-import { useSelector, useDispatch } from "react-redux"; // Добавляем useDispatch
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Box,
   Typography,
@@ -8,10 +8,9 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
-import { clearBasket } from "../../redux/slices/basketSlice"; // Добавляем эту строку
+import { clearBasket } from "../../redux/slices/basketSlice";
 import closeIcon from "../../assets/icons/kreuz.svg";
 
-// Код всплывающего окна
 const Popup = ({ onClose }) => (
   <Box
     sx={{
@@ -61,7 +60,7 @@ const Popup = ({ onClose }) => (
           fontFamily: "'Montserrat', sans-serif",
           fontWeight: 600,
           fontSize: "40px",
-          lineHeight: 1.1, // 110% можно записать как 1.1
+          lineHeight: 1.1,
           color: "#FFFFFF",
           mb: 2,
           paddingBottom: "24px",
