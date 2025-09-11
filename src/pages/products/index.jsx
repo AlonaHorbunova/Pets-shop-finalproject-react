@@ -78,7 +78,9 @@ export default function ProductsPage() {
   };
 
   return (
-    <Box sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5 }}>
+    <Box
+      sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5, mb: 5 }}
+    >
       <DynamicBreadcrumbs />
       <Typography
         variant="h2"

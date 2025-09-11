@@ -74,7 +74,9 @@ export default function SalesPage() {
   };
 
   return (
-    <Box sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5 }}>
+    <Box
+      sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5, mb: 5 }}
+    >
       <DynamicBreadcrumbs />
       <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
         <Typography

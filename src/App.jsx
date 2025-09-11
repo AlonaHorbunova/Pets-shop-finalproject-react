@@ -12,12 +12,14 @@ import BasketPage from "./pages/basket/index.jsx";
 import NotFoundPage from "./pages/notFoundPage/index.jsx";
 import ProductsByCategoryPage from "./pages/productsByCategory/index.jsx";
 import ProductDetailsPage from "./pages/productDetails/index.jsx";
+import ScrollToTop from "./components/ScrollToTop";
 
 import "./App.css";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <ScrollToTop />
       <div className="app-container">
         <Header />
         <main>

@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import BasketItem from "../../components/BasketItem";
@@ -9,7 +8,7 @@ export default function BasketPage() {
   const items = useSelector((state) => state.basket.items);
 
   return (
-    <Box sx={{ p: 4, maxWidth: "1200px", mx: "auto" }}>
+    <Box sx={{ p: 4, maxWidth: "1360px", mx: "auto" }}>
       <Box
         sx={{
           display: "flex",
@@ -21,7 +20,30 @@ export default function BasketPage() {
         <Typography variant="h3" fontWeight="bold">
           Shopping cart
         </Typography>
-        <Button component={Link} to="/products" variant="text" color="inherit">
+        <Box
+          sx={{
+            flexGrow: 0.999,
+            height: "2px",
+            backgroundColor: "#D9D9D9",
+            marginTop: "10px",
+          }}
+        />
+
+        <Button
+          component={Link}
+          to="/products"
+          variant="outlined"
+          color="inherit"
+          sx={{
+            color: "#000",
+            borderColor: "#D9D9D9",
+            textTransform: "none",
+            "&:hover": {
+              borderColor: "#D9D9D9",
+              backgroundColor: "rgba(0, 0, 0, 0.04)",
+            },
+          }}
+        >
           Back to the store
         </Button>
       </Box>

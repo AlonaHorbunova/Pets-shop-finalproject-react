@@ -57,7 +57,7 @@ export default function CategoriesPage() {
               lg: "repeat(4, 1fr)",
             },
             gap: 4,
-            marginBottom: "106px",
+            marginBottom: "46px",
           }}
         >
           {categories.map((category) => (
