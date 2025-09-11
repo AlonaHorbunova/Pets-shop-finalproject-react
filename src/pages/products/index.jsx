@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/slices/productsSlice";
+import { addItem } from "../../redux/slices/basketSlice"; // Import the addItem action
 import { Box, Typography } from "@mui/material";
 import ProductCard from "../../components/productCard";
 import DynamicBreadcrumbs from "../../components/DynamicBreadcrumbs";
@@ -18,6 +19,11 @@ export default function ProductsPage() {
       dispatch(fetchProducts());
     }
   }, [status, dispatch]);
+
+  // Create a function to handle adding an item to the cart
+  const handleAddToCart = (product) => {
+    dispatch(addItem(product));
+  };
 
   return (
     <Box sx={{ maxWidth: 1360, margin: "0 auto", padding: "0 20px", mt: 5 }}>
@@ -49,7 +55,11 @@ export default function ProductsPage() {
           }}
         >
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddToCart={handleAddToCart} // Pass the handler to ProductCard
+            />
           ))}
         </Box>
       )}

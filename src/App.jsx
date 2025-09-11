@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom"; // Import Routes and Route from react-router-dom
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 
@@ -18,27 +18,25 @@ import "./App.css";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <div className="app-container">
-          <Header />
-          <main>
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/categories" element={<CategoriesPage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/sales" element={<SalesPage />} />
-              <Route path="/basket" element={<BasketPage />} />
-              <Route
-                path="/categories/:id"
-                element={<ProductsByCategoryPage />}
-              />
-              <Route path="/products/:id" element={<ProductDetailsPage />} />{" "}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
+      <div className="app-container">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/sales" element={<SalesPage />} />
+            <Route path="/basket" element={<BasketPage />} />
+            <Route
+              path="/categories/:id"
+              element={<ProductsByCategoryPage />}
+            />
+            <Route path="/products/:id" element={<ProductDetailsPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </ThemeProvider>
   );
 }
