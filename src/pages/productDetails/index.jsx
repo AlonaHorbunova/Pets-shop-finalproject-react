@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchSingleProduct } from "../../redux/slices/productsSlice";
-import { addItem } from "../../redux/slices/basketSlice"; // Импортируем addItem
+import { addItem } from "../../redux/slices/basketSlice";
 import { Box, Typography, Button, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -16,8 +16,6 @@ export default function ProductDetailsPage() {
     singleItemStatus: status,
     singleItemError: error,
   } = useSelector((state) => state.products);
-
-  // Состояние для счетчика товара
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -39,7 +37,7 @@ export default function ProductDetailsPage() {
   const handleAddToCart = () => {
     if (product) {
       dispatch(addItem({ ...product, quantity }));
-      setQuantity(1); // Сбрасываем счетчик после добавления
+      setQuantity(1);
     }
   };
 
@@ -71,61 +69,69 @@ export default function ProductDetailsPage() {
   }
 
   return (
-    <Box sx={{ maxWidth: 1200, margin: "0 auto", padding: "20px" }}>
+    <>
       <DynamicBreadcrumbs />
-      <Box sx={{ display: "flex", gap: "50px" }}>
-        <Box sx={{ flex: 1 }}>
-          <img
-            src={`http://localhost:3333${product.image}`}
-            alt={product.title}
-            style={{ width: "100%", maxWidth: 600 }}
-          />
-        </Box>
-
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
-          <Typography variant="h2" gutterBottom>
-            {product.title}
-          </Typography>
-
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Typography variant="h4" color="primary">
-              ${product.discont_price ? product.discont_price : product.price}
+      <Box
+        sx={{
+          maxWidth: 1360,
+          maxHeight: 574,
+          margin: "0 auto",
+          padding: "20px",
+          mt: "40px",
+          mb: "80px",
+        }}
+      >
+        <Box sx={{ display: "flex", gap: "50px" }}>
+          <Box sx={{ flex: 1 }}>
+            <img
+              src={`http://localhost:3333${product.image}`}
+              alt={product.title}
+              style={{ width: "100%", maxWidth: 600 }}
+            />
+          </Box>
+          <Box
+            sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}
+          >
+            <Typography variant="h2" gutterBottom>
+              {product.title}
             </Typography>
-
-            {product.discont_price && (
-              <Typography
-                variant="body1"
-                sx={{ textDecoration: "line-through" }}
-              >
-                ${product.price}
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <Typography variant="h4" color="primary">
+                ${product.discont_price ? product.discont_price : product.price}
               </Typography>
-            )}
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 2 }}>
-            <Box sx={{ display: "flex", border: "1px solid #ccc" }}>
-              <IconButton onClick={handleDecrement} color="primary">
-                <RemoveIcon />
-              </IconButton>
-              <Typography sx={{ p: 1 }}>{quantity}</Typography>
-              <IconButton onClick={handleIncrement} color="primary">
-                <AddIcon />
-              </IconButton>
+              {product.discont_price && (
+                <Typography
+                  variant="body1"
+                  sx={{ textDecoration: "line-through" }}
+                >
+                  ${product.price}
+                </Typography>
+              )}
             </Box>
-
-            <Button
-              variant="contained"
-              sx={{ p: "10px 40px" }}
-              onClick={handleAddToCart}
-            >
-              Add to cart
-            </Button>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 2 }}>
+              <Box sx={{ display: "flex", border: "1px solid #ccc" }}>
+                <IconButton onClick={handleDecrement} color="primary">
+                  <RemoveIcon />
+                </IconButton>
+                <Typography sx={{ p: 1 }}>{quantity}</Typography>
+                <IconButton onClick={handleIncrement} color="primary">
+                  <AddIcon />
+                </IconButton>
+              </Box>
+              <Button
+                variant="contained"
+                sx={{ p: "10px 40px" }}
+                onClick={handleAddToCart}
+              >
+                Add to cart
+              </Button>
+            </Box>
+            <Typography variant="body1" sx={{ mt: 2 }}>
+              {product.description}
+            </Typography>
           </Box>
-
-          <Typography variant="body1" sx={{ mt: 2 }}>
-            {product.description}
-          </Typography>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 }
